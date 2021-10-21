@@ -31,7 +31,11 @@
 ```bash
 $ npm install
 ```
+## seed database
 
+```bash
+$  npm run typeorm:cli -- migration:run
+```
 ## Running the app
 
 ```bash

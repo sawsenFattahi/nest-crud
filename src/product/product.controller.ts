@@ -20,7 +20,7 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
   @UseGuards(JwtAuthGuard)
   @Post()
-  addProduct(@Body() product): Observable<IProduct[] | IProduct> {
+  addProduct(@Body() product: ProductDto): Observable<IProduct[] | IProduct> {
     return this.productService.createProduct(product);
   }
 

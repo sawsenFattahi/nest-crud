@@ -1,4 +1,5 @@
 import { Strategy } from 'passport-local';
+import { Observable } from 'rxjs';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, Dependencies } from '@nestjs/common';
 import { AuthService } from './auth.service';
@@ -12,7 +13,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(username, password) {
-    return this.authService.validateUser(username, password).toPromise();
+  validate(username, password): Observable<string> {
+    return this.authService.validateUser(username, password);
   }
 }

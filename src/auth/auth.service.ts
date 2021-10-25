@@ -30,11 +30,14 @@ export class AuthService {
     );
   }
 
-  validateUser(username: string, password: string): Observable<string> {
+  validateUser(
+    username: string,
+    password: string,
+  ): Observable<{ email: string; id: number }> {
     return from(this.userService.findOneByEmail(username)).pipe(
       map((user) => {
         if (bcrypt.compare(password, user.password)) {
-          return user.email;
+          return { email: user.email, id: user.id };
         } else {
           throw new HttpException(
             'Wrong credentials provides',

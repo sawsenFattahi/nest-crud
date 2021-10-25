@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Observable, from } from 'rxjs';
+import { Observable, of, from } from 'rxjs';
 import { map, catchError, mergeMap } from 'rxjs/operators';
 import * as bcrypt from 'bcrypt';
 import { IUser } from 'src/auth/interfaces/user.interface';
@@ -51,10 +51,10 @@ export class AuthService {
     );
   }
 
-  login(user: IUser): { access_token: string } {
+  login(user: IUser): Observable<{ access_token: string }> {
     const payload = { username: user.email, sub: user.id };
-    return {
+    return of({
       access_token: this.jwtService.sign(payload),
-    };
+    });
   }
 }

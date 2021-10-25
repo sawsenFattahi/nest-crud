@@ -6,7 +6,6 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dtos/login.dto';
 import { RegisterDto } from './dtos/register.dto';
@@ -17,16 +16,14 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
-  register(@Body() body: RegisterDto): Observable<string> {
+  register(@Body() body: RegisterDto) {
     return this.authService.register(body);
   }
 
   @HttpCode(200)
   @UseGuards(LocalAuthenticationGuard)
   @Post('login')
-  login(
-    @Req() request: { user: LoginDto },
-  ): Observable<{ access_token: string }> {
+  login(@Req() request: { user: LoginDto }) {
     return this.authService.login(request.user);
   }
 }
